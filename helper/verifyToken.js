@@ -1,0 +1,31 @@
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
+const { JWT_PRIVATE_KEY } = process.env;
+
+const verifyToken = (req, res, next) => {
+  const bearerToken = req.headers["authorization"];
+  const token = bearerToken?.split(" ")[1];
+  console.log("token", token);
+  if (!token) {
+    return res.status(400).send({
+      message: "Unauthorized: token diperlukan",
+    });
+  } else {
+    jwt.verify(token, JWT_PRIVATE_KEY, function (err, decoded) {
+      if (!err) {
+        //authorization4
+        console.log("berhasil verify token");
+        console.log("decode", decoded);
+        req.id_user = decoded.id;
+        next();
+      } else {
+        return res.status(400).send({
+          message: "token tidak valid / expired",
+          error: err,
+        });
+      }
+    });
+  }
+};
+
+module.exports = verifyToken;

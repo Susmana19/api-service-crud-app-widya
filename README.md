@@ -1,2 +1,2 @@
-# api-service-crud-app-widya
-api service for crud app using express
+# crud-product-app
+crud product app using express and postgresql
