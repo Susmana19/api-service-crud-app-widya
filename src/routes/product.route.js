@@ -6,7 +6,7 @@ const router = express();
 const productController = require("../controllers/product.controller");
 const verifyToken = require("../../helper/verifyToken");
 
-//route products
+//route products and verify token
 router.get("/", verifyToken, productController.getAll);
 router.get("/:id", verifyToken, productController.getById);
 router.post("/", verifyToken, productController.add);

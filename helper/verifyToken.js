@@ -1,11 +1,10 @@
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const jwt = require("jsonwebtoken");
 const { JWT_PRIVATE_KEY } = process.env;
 
 const verifyToken = (req, res, next) => {
   const bearerToken = req.headers["authorization"];
   const token = bearerToken?.split(" ")[1];
-  console.log("token", token);
   if (!token) {
     return res.status(400).send({
       message: "Unauthorized: token diperlukan",
@@ -13,9 +12,7 @@ const verifyToken = (req, res, next) => {
   } else {
     jwt.verify(token, JWT_PRIVATE_KEY, function (err, decoded) {
       if (!err) {
-        //authorization4
-        console.log("berhasil verify token");
-        console.log("decode", decoded);
+        //authorization
         req.id_user = decoded.id;
         next();
       } else {

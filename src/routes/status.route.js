@@ -5,7 +5,7 @@ const router = express();
 //import internal
 const statusController = require("../controllers/status.controller");
 
-//route products
+//route status
 router.get("/", statusController.get);
 
 //export

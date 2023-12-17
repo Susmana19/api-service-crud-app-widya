@@ -1,21 +1,14 @@
 require("dotenv").config();
 const cors = require("cors");
-const { urlencoded, json } = require("express");
+const { urlencoded } = require("express");
 const express = require("express");
-const path = require("path");
 const app = express();
-const port = process.env.PORT;
-const db = require("./helper/connection.js");
+const port = 7000;
 const router = require("./src/routes/index.js");
 
 app.use(express.json());
 app.use(urlencoded({ extended: true }));
-app.use(cors()); //semua bisa akses
-
-// Static Middleware
-app.use("/static", express.static("public"));
-app.use("views", express.static(path.join(__dirname, "views")));
-app.set("view engine", "ejs");
+app.use(cors()); //public access
 app.use(router);
 
 app.listen(port, () => {

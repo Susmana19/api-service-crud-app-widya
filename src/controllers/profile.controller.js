@@ -9,8 +9,6 @@ const profileModel = require("../models/profile.model");
 
 const profileController = {
   get: (req, res) => {
-    const bearerHeader = req.headers["authorization"];
-    console.log("", bearerHeader);
     const id = req.id_user;
     return profileModel
       .get(id)
